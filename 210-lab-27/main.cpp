@@ -1,3 +1,5 @@
+// 210 | Lab 27 | Neil Orton
+// IDE Used: Xcode
 #include <iostream>
 #include <map>
 #include <vector>
@@ -151,20 +153,21 @@ void increase_friendship(map<string, tuple<int, string, string>> &villagers) {  
     else    // if searchKey is not found
         cout << endl << searchKey << " not found." << endl;
 }
+
 void decrease_friendship(map<string, tuple<int, string, string>> &villagers) {    // decrease friendhsip of villager funnction
     string name;
     int friendship;
-
+    
     cout << "Enter name of villager you wish to decrease friendship: ";
     cin >> name;
-
+    
     string searchKey = name;
     auto it = villagers.find(searchKey);   // iterator find the location based off the searchkey
-
+    
     if (it != villagers.end()) {
         cout << "Enter new friendship: ";
         cin >> friendship;
-
+        
         while (friendship > get<0>(it->second)) {   // validation loop to esnure user enters a level that is a decrease
             cout << "Enter new friendship that is less: ";
             cin >> friendship;
@@ -173,4 +176,34 @@ void decrease_friendship(map<string, tuple<int, string, string>> &villagers) {  
     }
     else  // if searchKey is not found
         cout << endl << searchKey << " not found." << endl;
+}
+
+void search_villager(map<string, tuple<int, string, string>> villagers) {
+    string name;
+    
+    cout << "Enter name of villager you wish to find: ";    // User enters name of villager they wish to find
+    cin >> name;
+    
+    string searchKey = name;
+    auto it = villagers.find(searchKey);
+    
+    if (it != villagers.end()) {       // the iterator points to beyond the end of the map
+        cout << "\nFound " << searchKey << "'s data: " << endl;
+        cout << get<0>(it->second) << " ";
+        cout <<  get<1>(it->second) << " ";
+        cout <<  get<2>(it->second) << endl;
+    }
+    else     // if searchKey is not found
+        cout << endl << searchKey << " not found." << endl;
+}
+
+void display_map(map<string, tuple<int, string, string>> villagers) {    //function to dispaly the map
+    
+    cout << "Villagers and their info:" << endl;
+    for (const auto& [name, tuple] : villagers) {
+        int bond = get<0>(villagers[name]);
+        string race = get<1>(villagers[name]);
+        string phrase = get<2>(villagers[name]);
+        cout << name << " [" << bond << ", " << race << ", '" << phrase << "']" << endl;
+    }
 }
