@@ -151,3 +151,26 @@ void increase_friendship(map<string, tuple<int, string, string>> &villagers) {  
     else    // if searchKey is not found
         cout << endl << searchKey << " not found." << endl;
 }
+void decrease_friendship(map<string, tuple<int, string, string>> &villagers) {    // decrease friendhsip of villager funnction
+    string name;
+    int friendship;
+
+    cout << "Enter name of villager you wish to decrease friendship: ";
+    cin >> name;
+
+    string searchKey = name;
+    auto it = villagers.find(searchKey);   // iterator find the location based off the searchkey
+
+    if (it != villagers.end()) {
+        cout << "Enter new friendship: ";
+        cin >> friendship;
+
+        while (friendship > get<0>(it->second)) {   // validation loop to esnure user enters a level that is a decrease
+            cout << "Enter new friendship that is less: ";
+            cin >> friendship;
+        }
+        get<0>(it->second) = friendship;
+    }
+    else  // if searchKey is not found
+        cout << endl << searchKey << " not found." << endl;
+}
